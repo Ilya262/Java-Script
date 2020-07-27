@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.error{
+
+background-color:red;
+
+}
+
+
+</style>
+
+</head>
+<body>
+
+	<h1 style="color: red;margin-top=25px">Get</h1>
+
+
+	<form>
+
+		<label>Surname:</label> <input style="margin-top: 25px;" type="text"id="Surname"> 
+			<br> 
+			<label>Name:</label><input style="margin-top: 25px; margin-left: 23px" type="text" id="Name">
+		<br> 
+		<label>Age:</label><input style="margin-top: 25px; margin-left: 35px" type="text" id="AgeGet">
+		<br>
+		 <label>Address:</label> <input style="margin-top: 25px; margin-left: 5px" type="text" id="Address">
+		<br>
+		 <input style="margin-top: 25px; margin-left: 120px"id="Button" type="button" value="Submit"  onclick="SendGet()">
+
+
+
+	</form>
+	
+	<h2 style="color: red;margin-top=25px">Post</h2>
+	<form>
+
+		<label>Surname:</label> <input style="margin-top: 25px;" type="text"id="SurnamePost"> 
+			<br> 
+			<label>Name:</label><input style="margin-top: 25px; margin-left: 23px" type="text" id="NamePost">
+		<br> 
+		<label>Age:</label><input style="margin-top: 25px; margin-left: 35px" type="text" id="AgePost">
+		<br>
+		 <label>Address:</label> <input style="margin-top: 25px; margin-left: 5px" type="text" id="AddressPost">
+		<br>
+		  <input style="margin-top: 25px; margin-left: 120px"id="Button" type="button" value="Submit"  onclick="SendPost()">
+
+
+
+	</form>
+
+
+	<script>
+function SendGet() {
+	var userData ={
+	userSurname:document.getElementById("Surname").value,
+	userName:document.getElementById("Name").value,
+	userAge:document.getElementById("AgeGet").value,
+	userAddress:document.getElementById("Address").value
+	
+	};
+	
+	
+var xhr=new XMLHttpRequest();
+	xhr.open("Get","/formGet?userSurname="+userData.userSurname+"&userName="+userData.userName+"&userAge="+userData.userAge+"&userAddress="+userData.userAddress,false);
+    
+   xhr.setRequestHeader("Content-type","application/json");
+    xhr.send();
+	
+    
+    
+    
+}
+
+
+function SendPost() {
+	var userData ={
+	userSurname:document.getElementById("SurnamePost").value,
+	userName:document.getElementById("NamePost").value,
+	userAge:document.getElementById("AgePost").value,
+	userAddress:document.getElementById("AddressPost").value
+	
+	};
+	
+	
+var xhr=new XMLHttpRequest();
+	xhr.open("Post","/formPost");
+    
+   xhr.setRequestHeader("Content-type","application/json");
+   console.log(userData);
+   xhr.send(JSON.stringify({"id":1}));
+	
+    
+    
+    
+}
+
+AgeGet.onblur= function(){
+	if(isNaN(this.value)){
+		this.classList.add('error');
+		AgeGet.focus();
+	}
+	
+	else{
+		this.classList.remove('error');
+		
+		
+	}
+}
+AgePost.onblur= function(){
+	if(isNaN(this.value)&& this.value>100&&this.value<0){
+		this.classList.add('error');
+		AgeGet.focus();
+	}
+	
+	else{
+		this.classList.remove('error');
+		
+		
+	}
+}
+
+</script>
+
+</body>
+</html>
